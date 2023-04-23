@@ -1,6 +1,8 @@
 
 package logica;
 
+import cells.Celda;
+import cells.Desierto;
 import cells.Grama;
 import enums.TipoCelda;
 import java.awt.GridLayout;
@@ -8,17 +10,20 @@ import javax.swing.JPanel;
 
 public class MatrizCelda {
     //creamos la matriz grama por el momento 
-      private  Grama celda[][];
+      private  Celda celda[][];
     public MatrizCelda(){
         //indicamos el valor de sus dimensiones
-        celda=new Grama[6][5];
+        celda=new Celda[6][5];
         //recorremos cada casilla de la matriz y le colocamos un jpanel que contiene un label en dicha matriz
         for(int i =0; i<6; i++){
             for(int j=0; j<5;j++){
-                //agregamos un label a la matriz que hemos creado
-                this.celda[i][j]=new Grama( TipoCelda.DESIERTO);
+                   
+                this.celda[i][j]=new Grama( TipoCelda.GRAMA);
+
+        
             }
         }
+        
     }
     
     //como esta es la clase matriz, debe contener el panel general

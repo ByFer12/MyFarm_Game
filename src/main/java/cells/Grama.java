@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package cells;
 
 import semilla.Semilla;
@@ -9,6 +6,8 @@ import enums.EstadoCelda;
 import enums.TipoCelda;
 import enums.TipoSemilla;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.*;
@@ -25,7 +24,8 @@ public class Grama implements Celda {
     private Parcela parcelas;
     private Animal animales[], animal;
     private Planta plantas[], planta;
-    private boolean estado;
+    private boolean estado, parcela;
+    
     private TipoCelda image;
 
     Border borde = BorderFactory.createLineBorder(Color.BLACK, 1);
@@ -37,6 +37,7 @@ public class Grama implements Celda {
         this.animales = null;
         this.plantas = null;
         this.estado = true;
+        this.parcela=false;
 
     }
 
@@ -44,32 +45,51 @@ public class Grama implements Celda {
     public void setImage(EstadoCelda image, boolean libre) {
 
     }
+ 
+
 
     //creamos el panel que se mostrara como casilla en la matriz que retorne un jpanel
+    @Override
     public JPanel mostrarPanel() {
         //creamos el jpanel que contendra cada una de las casillas (labels)
         JPanel panel = new JPanel(new BorderLayout());
-        //creamos un objeto icon para setear la imagen al label que posteriormente crearemos
+        
         var icon = new ImageIcon(image.getResource());
-
-//creamos un label que representara cada casilla
-        JLabel label1 = new JLabel();
-        //seteamos la imagen del label
-        label1.setIcon(new ImageIcon(icon.getImage().getScaledInstance(200, 130, Image.SCALE_SMOOTH)));
-
+        
+    //creamos un label que representara cada casilla
+        JLabel label = new JLabel();
+        label.setSize(200, 130);
+       
+        label.setIcon(new ImageIcon(icon.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH)));
         //agregamos un jpopupmenu
-        label1.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent e) {
+        label.addMouseListener(new MouseAdapter() {
+       public void mousePressed(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON3) {
                     JPopupMenu popupMenu = new JPopupMenu();
-                    popupMenu.add(new JMenuItem("Opción 1"));
-                    popupMenu.add(new JMenuItem("Opción 2"));
+                    JMenuItem sembrar= new JMenuItem("Sembrar");
+                    JMenuItem cosechar= new JMenuItem("Cosechar");
+                    JMenuItem limpiar= new JMenuItem("Limpiar");
+                    JMenuItem crearParcela= new JMenuItem("Crear Parcela");
+                    JMenuItem addAnimal= new JMenuItem("Agregar animal");
+                    popupMenu.add(sembrar);
+                    popupMenu.add(cosechar);
+                    popupMenu.add(limpiar);
+                    popupMenu.add(crearParcela);
+                    popupMenu.add(cosechar); 
+                    popupMenu.add(addAnimal);
                     popupMenu.show(e.getComponent(), e.getX(), e.getY());
+                    
+                    crearParcela(crearParcela);
+                    limpiar(limpiar);
+                    cosechar(cosechar);
+                    colocarAnimal(addAnimal);
+                    sembrar(sembrar);
                 }
             }
-        });
+        });//------------------------------------------------
+        
         //a;adimos el label al panel que hemos creado  
-        panel.add(label1, BorderLayout.CENTER);
+        panel.add(label, BorderLayout.CENTER);
         //le colocamos un borde a cada casilla
         panel.setBorder(borde);
         // retornamos cada panel, cada casilla
@@ -77,10 +97,79 @@ public class Grama implements Celda {
     }
 
     //funcion que siembra, recibe un objeto semilla
-    public void sembrar(Semilla semilla) {
-        if (this.estado) {
-            semilla = new Semilla(TipoSemilla.GRANOS);
-        }
+    public void sembrar(JMenuItem sembrar) {
+        
+        sembrar.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if(estado){
+                JOptionPane.showMessageDialog(null, "Semilla sembrado correctamente");
+                estado=false;
+                    
+                }else{
+                     JOptionPane.showMessageDialog(null, "Ya no puedes sembrar perra, esta ocupado la casilla");
+                }
+                
+            }
+            
+        });
+        
+      
+
+    }
+    public void limpiar(JMenuItem limpiar) {
+        
+        limpiar.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if(estado){
+                    JOptionPane.showMessageDialog(null, "El terreno esta limpio pedazo de idiota");
+                }else{
+                    JOptionPane.showMessageDialog(null, "Limpiando celda.........");
+                    JOptionPane.showMessageDialog(null, "Limpiado, ahora puedes sembrar");
+                    estado=true;
+                }
+            }
+            
+        });
+
+    }
+    
+    public void cosechar(JMenuItem cosechar) {
+        cosechar.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if(estado){
+                    JOptionPane.showMessageDialog(null, "No puedes cosechar en un terreno limpio burro");
+                    
+                }else{
+                    JOptionPane.showMessageDialog(null, "Cosechado correctamente...");
+                    estado=true;
+                }
+                
+            }
+            
+        });
+
+    }
+    
+    public void crearParcela(JMenuItem colocarParcela) {
+        
+        colocarParcela.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+
+                if(estado){
+                    JOptionPane.showMessageDialog(null, "Parcela colocado correctamente");
+                    parcela=true;
+                    estado=false;
+                }else{
+               JOptionPane.showMessageDialog(null, "No puedes colocar parcela, la casilla esta ocupada");
+            }
+            }
+        
+        
+        });
 
     }
 
@@ -88,20 +177,26 @@ public class Grama implements Celda {
         return this.image;
     }
 
-    public void limpiar() {
+
+
+    public void colocarAnimal(JMenuItem colocarAnimal) {
+        colocarAnimal.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                 if(parcela){
+                     JOptionPane.showMessageDialog(null, "Animal colocado correctamente");
+                     estado=false;
+                 }else{
+                     JOptionPane.showMessageDialog(null, "Debes colocar una parcela antes...");
+                 }
+
+            }
+        
+        
+        });
+        
 
     }
 
-    public void colocarParcela() {
-
-    }
-
-    public void colocarAnimal() {
-
-    }
-
-    public void cosechar() {
-
-    }
 
 }

@@ -5,7 +5,7 @@
 package cells;
 
 import enums.EstadoCelda;
-import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -18,7 +18,9 @@ public interface Celda {
      * @param image
      * @param libre
      */
-    public void setImage(EstadoCelda image, boolean libre);
+ void setImage(EstadoCelda image, boolean libre);
+    
+    JPanel mostrarPanel();
     
    
 }

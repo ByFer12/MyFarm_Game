@@ -1,34 +1,45 @@
-
 package cells;
 
 import enums.EstadoCelda;
 import enums.TipoCelda;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Image;
 import javax.swing.*;
-import org.netbeans.lib.awtextra.AbsoluteLayout;
+import javax.swing.border.Border;
 
 
-public class Desierto implements Celda{
+public class Desierto implements Celda {
+
     private TipoCelda image;
     
-    public Desierto(TipoCelda image){
-        this.image=image;
+Border borde = BorderFactory.createLineBorder(Color.BLACK, 1);
+
+    public Desierto(TipoCelda image) {
+        this.image = image;
     }
 
     @Override
     public void setImage(EstadoCelda image, boolean libre) {
-        
+
     }
-    
-    public JPanel getPanel(){
+
+    public JPanel mostrarPanel() {
         JPanel panel = new JPanel(new BorderLayout());
+
         ImageIcon icon = new ImageIcon(image.getResource());
+
+        JLabel label = new JLabel();
+        label.setSize(200, 130);
+        label.setIcon(new ImageIcon(icon.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH)));
         
-        JLabel label =new JLabel();
-       
-        
+        panel.add(label, BorderLayout.CENTER);
+        panel.setBorder(borde);
+
+
         return panel;
         
+
     }
-    
+
 }
