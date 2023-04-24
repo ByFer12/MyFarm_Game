@@ -65,11 +65,13 @@
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Component id="vida" min="-2" pref="74" max="-2" attributes="0"/>
                                       <Component id="nombre" min="-2" pref="74" max="-2" attributes="0"/>
+                                      <Component id="monedas" alignment="1" min="-2" pref="74" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="txtNombre" min="-2" pref="103" max="-2" attributes="0"/>
                                       <Component id="txtVida" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
+                                      <Component id="monedasOro" min="-2" pref="103" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -101,7 +103,12 @@
                       <Component id="vida" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="txtVida" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="monedas" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="monedasOro" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="botonIniciar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="672" max="32767" attributes="0"/>
               </Group>
@@ -180,6 +187,29 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonIniciarActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="monedas">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Liberation Sans" size="16" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Monedas"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="monedasOro">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Liberation Sans" size="18" style="1"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="monedasOroActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTextField(&quot;      &quot;+200)"/>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

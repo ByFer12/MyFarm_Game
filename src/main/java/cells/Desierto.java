@@ -30,8 +30,9 @@ Border borde = BorderFactory.createLineBorder(Color.BLACK, 1);
         ImageIcon icon = new ImageIcon(image.getResource());
 
         JLabel label = new JLabel();
-        label.setSize(200, 130);
+        label.setSize(215, 165);
         label.setIcon(new ImageIcon(icon.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH)));
+        
         
         panel.add(label, BorderLayout.CENTER);
         panel.setBorder(borde);

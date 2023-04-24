@@ -14,9 +14,9 @@ import enums.TipoProduccionPlanta;
 public abstract class Planta extends SerVivo{
     private TipoPlanta planta;
     private TipoProduccionPlanta produccion;
-    private String precio;
+    private int precio;
 
-    public Planta(TipoPlanta planta, TipoProduccionPlanta produccion, String precio, String nombre) {
+    public Planta(TipoPlanta planta, TipoProduccionPlanta produccion, int precio, String nombre) {
         super( nombre);
         this.planta = planta;
         this.produccion = produccion;
@@ -40,11 +40,11 @@ public abstract class Planta extends SerVivo{
         this.produccion = produccion;
     }
 
-    public String getPrecio() {
+    public int getPrecio() {
         return precio;
     }
 
-    public void setPrecio(String precio) {
+    public void setPrecio(int precio) {
         this.precio = precio;
     }
     

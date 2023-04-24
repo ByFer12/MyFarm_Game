@@ -15,28 +15,27 @@ import objetos.Jugador;
  */
 public class Principal extends javax.swing.JFrame {
 
+    private static Jugador jugador;
+    MatrizCelda matriz;
 
-    Jugador jugador;
-     MatrizCelda matriz;
     public Principal(String nombre, String nick) {
-  
-        jugador=new Jugador(nombre, nick, txtVida);
-        initComponents();  
+
+        jugador = new Jugador(nombre, nick, txtVida, monedasOro);
+        initComponents();
         jugador.setFieldVida(txtVida);
-        
-       matriz = new MatrizCelda();
-       panelGranja.add(matriz.panelTotal());
-       this.setSize(this.getWidth(),this.getHeight());
+        jugador.setMonedasOross(monedasOro);
 
-        
-       
-        
+        matriz = new MatrizCelda();
+        panelGranja.add(matriz.panelTotal());
+        this.setSize(this.getWidth(), this.getHeight());
+        System.out.println("Monedas: "+jugador.getMonedas());
 
-        
-
-  
     }
-
+    
+    
+    public static Jugador getJugador(){
+        return Principal.jugador;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -56,6 +55,8 @@ public class Principal extends javax.swing.JFrame {
         vida = new javax.swing.JLabel();
         txtVida = new javax.swing.JTextField("      100");
         botonIniciar = new javax.swing.JButton();
+        monedas = new javax.swing.JLabel();
+        monedasOro = new javax.swing.JTextField("      "+200);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,6 +97,17 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        monedas.setFont(new java.awt.Font("Liberation Sans", 1, 16)); // NOI18N
+        monedas.setText("Monedas");
+
+        monedasOro.setEditable(false);
+        monedasOro.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
+        monedasOro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                monedasOroActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelDatosLayout = new javax.swing.GroupLayout(panelDatos);
         panelDatos.setLayout(panelDatosLayout);
         panelDatosLayout.setHorizontalGroup(
@@ -112,11 +124,13 @@ public class Principal extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDatosLayout.createSequentialGroup()
                                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(vida, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(monedas, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtVida, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(txtVida, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(monedasOro, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(24, 24, 24))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDatosLayout.createSequentialGroup()
                         .addComponent(botonIniciar)
@@ -137,7 +151,11 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(vida, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtVida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
+                .addGap(3, 3, 3)
+                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(monedas, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(monedasOro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botonIniciar)
                 .addContainerGap(672, Short.MAX_VALUE))
         );
@@ -174,15 +192,18 @@ public class Principal extends javax.swing.JFrame {
         //llamamos al metodo que inicia la vida y por lo tanto el juego 
         ManejadorJugador man = new ManejadorJugador();
         man.iniciarVida(jugador);
-  
+
     }//GEN-LAST:event_botonIniciarActionPerformed
 
-  
-  
+    private void monedasOroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_monedasOroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_monedasOroActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonIniciar;
+    private javax.swing.JLabel monedas;
+    public javax.swing.JTextField monedasOro;
     private javax.swing.JLabel nick;
     private javax.swing.JLabel nombre;
     private javax.swing.JPanel panelDatos;
