@@ -30,11 +30,22 @@ public class Grama implements Celda {
     private JLabel label;
     private ImageIcon icon;
     private EstadoCelda estadoCelda;
-public static int time;
+    private int time;
+
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
+    }
 
     private TipoCelda image;
 
     Border borde = BorderFactory.createLineBorder(Color.BLACK, 1);
+    public Grama(){
+        this.time=50;
+    }
 
     public Grama(TipoCelda image) {
         this.image = image;
@@ -115,14 +126,8 @@ public static int time;
                     label.setIcon(new ImageIcon(icon2.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH)));
                     JOptionPane.showMessageDialog(null, "Semilla sembrado correctamente");
                     estado = false;
+                    semilla.setLabel(label);
                     semilla.start();
-                    System.out.println("Hola "+time);
-                    if( time==1){
-                        semilla.interrupt();
-                        crecidaPlanta();
-                    }
-
-
                 } else {
                     JOptionPane.showMessageDialog(null, "Ya no puedes sembrar perra, esta ocupado la casilla");
                 }
@@ -134,16 +139,6 @@ public static int time;
     }
 
 
-    public void crecidaPlanta() {
-        if (semilla.getTipo() == TipoSemilla.FRUTAS) {
-            planta = new PlantaFruta(TipoPlanta.FRUTA, TipoProduccionPlanta.FRUTA, 20, "Manzana");
-            planta.start();
-            ImageIcon icon2 = new ImageIcon(estadoCelda.FRUTA.getResource());
-
-            label.setIcon(new ImageIcon(icon2.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH)));
-        }
-    }
-
     public void limpiar(JMenuItem limpiar) {
 
         limpiar.addActionListener(new ActionListener() {
@@ -152,8 +147,9 @@ public static int time;
                 if (estado) {
                     JOptionPane.showMessageDialog(null, "El terreno esta limpio pedazo de idiota");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Limpiando celda.........");
-                    JOptionPane.showMessageDialog(null, "Limpiado, ahora puedes sembrar");
+                    semilla=null;
+                    label.setIcon(new ImageIcon(icon.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH)));
+                    JOptionPane.showMessageDialog(null, "Terreno limpiado, ahora puedes sembrar");
                     estado = true;
                 }
             }

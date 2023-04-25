@@ -59,7 +59,7 @@ public class Jugador extends SerVivo{
     }
 
     public void setMonedas(int monedas) {
-        this.monedas -=200;
+        this.monedas -=monedas;
         this.monedasOross.setText("      "+this.monedas);
     }
     
