@@ -6,17 +6,18 @@ package objetos;
 
 import enums.TipoPlanta;
 import enums.TipoProduccionPlanta;
+import enums.TipoSemilla;
 
 /**
  *
  * @author tuxrex
  */
 public abstract class Planta extends SerVivo{
-    private TipoPlanta planta;
+    private TipoSemilla planta;
     private TipoProduccionPlanta produccion;
     private int precio;
 
-    public Planta(TipoPlanta planta, TipoProduccionPlanta produccion, int precio, String nombre) {
+    public Planta(TipoSemilla planta, TipoProduccionPlanta produccion, int precio, String nombre) {
         super( nombre);
         this.planta = planta;
         this.produccion = produccion;
@@ -24,11 +25,11 @@ public abstract class Planta extends SerVivo{
        
     }
 
-    public TipoPlanta getPlanta() {
+    public TipoSemilla getPlanta() {
         return planta;
     }
 
-    public void setPlanta(TipoPlanta planta) {
+    public void setPlanta(TipoSemilla planta) {
         this.planta = planta;
     }
 

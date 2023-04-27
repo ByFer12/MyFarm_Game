@@ -4,32 +4,40 @@
  */
 package objetos;
 
-import enums.TipoPlanta;
 import enums.TipoProduccionPlanta;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import enums.TipoSemilla;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author tuxrex
  */
-public class PlantaFruta extends Planta{
+public class PlantaFruta extends Planta {
 
-    public PlantaFruta(TipoPlanta planta, TipoProduccionPlanta produccion, int precio, String nombre) {
+    public PlantaFruta(TipoSemilla planta, TipoProduccionPlanta produccion, int precio, String nombre) {
         super(planta, produccion, precio, nombre);
     }
 
     @Override
     public void run() {
-        while(vida>0){
+        while (vida > 0) {
             vida--;
-            
+
             try {
-                PlantaFruta.sleep(5000);
+                PlantaFruta.sleep(500);
+                System.out.println("Vida frutaplanta" + vida);
+                if (vida == 50) {
+                    JOptionPane.showMessageDialog(null, "Puede cosechar el producto");
+                }
             } catch (InterruptedException ex) {
                 System.out.println("Error en la vida");
             }
         }
     }
-    
+       public void detener(){
+        vida=0;
+        interrupt();
+    }
+
+
 }

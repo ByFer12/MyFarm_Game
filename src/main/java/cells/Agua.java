@@ -4,6 +4,7 @@ import enums.*;
 import frontend.Principal;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Random;
 import javax.swing.*;
 import javax.swing.border.Border;
 import objetos.*;
@@ -18,25 +19,23 @@ public class Agua implements Celda {
     private EstadoCelda estadoCelda;
     Border borde = BorderFactory.createLineBorder(Color.BLACK, 1);
     private boolean estado, estadoBarco;
+    private Pescado[] peces;
+    private Random random=new Random();
 
     public Agua(TipoCelda image) {
         this.image = image;
         estado = true;
         estadoBarco = false;
         jugador = Principal.getJugador();
-        icon = new ImageIcon(image.getResource());
-        label = new JLabel();
-        label.setSize(215, 165);
-    }
-
-    @Override
-    public void setImage(EstadoCelda image, boolean libre) {
+        crearPezcados();
     }
 
     @Override
     public JPanel mostrarPanel() {
         JPanel panel = new JPanel(new BorderLayout());
-
+        icon = new ImageIcon(image.getResource());
+        label = new JLabel();
+        label.setSize(215, 165);
         label.setIcon(new ImageIcon(icon.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH)));
 
         label.addMouseListener(new MouseAdapter() {
@@ -77,12 +76,13 @@ public class Agua implements Celda {
                     estadoBarco = true;
                     barco = new Barco();
                     jugador.setMonedas(barco.getPrecio());
-       
-                    ImageIcon icon2= new ImageIcon(estadoCelda.PESCANDO.getResource());
+
+                    ImageIcon icon2 = new ImageIcon(estadoCelda.PESCANDO.getResource());
                     label.setIcon(new ImageIcon(icon2.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH)));
                     JOptionPane.showMessageDialog(null, "Barco agregado correctamente");
-                    
-
+                    System.out.println("Peces: "+peces.length);
+                    barco.setPecesAgua(peces);
+                    barco.start();
                 } else {
                     JOptionPane.showMessageDialog(null, "No puede agregar el barco no sea mula");
                 }
@@ -91,7 +91,6 @@ public class Agua implements Celda {
         });
 
     }
-    
 
     public void quitarBarco(JMenuItem quitarBarco) {
         quitarBarco.addActionListener(new ActionListener() {
@@ -100,9 +99,9 @@ public class Agua implements Celda {
 
                 if (estadoBarco) {
                     label.setIcon(new ImageIcon(icon.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH)));
-                    barco=null;
+                    barco = null;
                     JOptionPane.showMessageDialog(null, "Barco removido correctamente");
-                    estado=true;
+                    estado = true;
                 } else {
                     JOptionPane.showMessageDialog(null, "No puede quitar barco porque no hay barco");
                 }
@@ -110,55 +109,21 @@ public class Agua implements Celda {
 
         });
     }
-    
 
-    public TipoCelda getImage() {
-        return image;
+    public void crearPezcados() {
+        int numberRandom = random.nextInt(50 - 20 - 1) + 20;
+        peces = new Pescado[numberRandom];
+        for (int i = 0; i < numberRandom; i++) {
+            peces[i] = new Pescado(20);
+
+        }
     }
 
-    public void setImage(TipoCelda image) {
-        this.image = image;
+    public Pescado[] getPeces() {
+        return peces;
     }
 
-    public Barco getBarco() {
-        return barco;
-    }
 
-    public void setBarco(Barco barco) {
-        this.barco = barco;
-    }
-
-    public Jugador getJugador() {
-        return jugador;
-    }
-
-    public void setJugador(Jugador jugador) {
-        this.jugador = jugador;
-    }
-
-    public JLabel getLabel() {
-        return label;
-    }
-
-    public void setLabel(JLabel label) {
-        this.label = label;
-    }
-
-    public ImageIcon getIcon() {
-        return icon;
-    }
-
-    public void setIcon(ImageIcon icon) {
-        this.icon = icon;
-    }
-
-    public Border getBorde() {
-        return borde;
-    }
-
-    public void setBorde(Border borde) {
-        this.borde = borde;
-    }
 
     public boolean isEstado() {
         return estado;

@@ -1,16 +1,10 @@
 package cells;
 
 import semilla.Semilla;
-import enums.EstadoCelda;
-import enums.TipoCelda;
-import enums.TipoPlanta;
-import enums.TipoProduccionPlanta;
-import enums.TipoSemilla;
+import enums.*;
+import frontend.Principal;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.Border;
 
@@ -22,46 +16,25 @@ import objetos.*;
  */
 public class Grama implements Celda {
 
-    private Parcela parcelas;
-    private Animal animales[], animal;
-    private Planta plantas[], planta;
     private boolean estado, parcela;
     private Semilla semilla;
     private JLabel label;
     private ImageIcon icon;
     private EstadoCelda estadoCelda;
     private int time;
-
-    public int getTime() {
-        return time;
-    }
-
-    public void setTime(int time) {
-        this.time = time;
-    }
-
+    private Jugador jugador;
     private TipoCelda image;
 
     Border borde = BorderFactory.createLineBorder(Color.BLACK, 1);
-    public Grama(){
-        this.time=50;
-    }
 
     public Grama(TipoCelda image) {
         this.image = image;
         label = new JLabel();
-        this.parcelas = null;
-        this.animales = null;
-        this.plantas = null;
         this.semilla = null;
         this.estado = true;
         this.parcela = false;
         label.setSize(215, 165);
-
-    }
-
-    @Override
-    public void setImage(EstadoCelda image, boolean libre) {
+        this.jugador=Principal.getJugador();
 
     }
 
@@ -83,7 +56,11 @@ public class Grama implements Celda {
 
                     JPopupMenu popupMenu = new JPopupMenu();
 
-                    JMenuItem sembrar = new JMenuItem("Sembrar");
+                    JMenu sembrar = new JMenu("Sembrar");
+                    JMenuItem fruta = new JMenuItem("Fruta");
+                    JMenuItem grano = new JMenuItem("Grano");
+                    sembrar.add(fruta);
+                    sembrar.add(grano);
                     JMenuItem cosechar = new JMenuItem("Cosechar");
                     JMenuItem limpiar = new JMenuItem("Limpiar");
                     JMenuItem crearParcela = new JMenuItem("Crear Parcela");
@@ -101,7 +78,8 @@ public class Grama implements Celda {
                     limpiar(limpiar);
                     cosechar(cosechar);
                     colocarAnimal(addAnimal);
-                    sembrar(sembrar);
+                    fruta(fruta);
+                    grano(grano);
                 }
             }
         });//------------------------------------------------
@@ -114,20 +92,25 @@ public class Grama implements Celda {
         return panel;
     }
 
-    //funcion que siembra, recibe un objeto semilla
-    public void sembrar(JMenuItem sembrar) {
+    //funcion que siembra fruta
+    public void fruta(JMenuItem fruta) {
 
-        sembrar.addActionListener(new ActionListener() {
+        fruta.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 if (estado) {
-                    semilla = new Semilla(TipoSemilla.FRUTAS);
-                    ImageIcon icon2 = new ImageIcon(estadoCelda.SEMBRADO.getResource());
-                    label.setIcon(new ImageIcon(icon2.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH)));
-                    JOptionPane.showMessageDialog(null, "Semilla sembrado correctamente");
-                    estado = false;
-                    semilla.setLabel(label);
-                    semilla.start();
+                    String nombre = JOptionPane.showInputDialog(null, "Ingrese el nombre de la fruta: ");
+                    if (nombre != null) {
+                        semilla = new Semilla(TipoSemilla.FRUTAS, nombre);
+                        ImageIcon icon2 = new ImageIcon(estadoCelda.SEMBRADO.getResource());
+                        label.setIcon(new ImageIcon(icon2.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH)));
+                        estado = false;
+                        semilla.setLabel(label);
+                        semilla.start();
+                        JOptionPane.showMessageDialog(null, "Semilla sembrado correctamente  " + semilla);
+                    }
+                    System.out.println("Adios");
+
                 } else {
                     JOptionPane.showMessageDialog(null, "Ya no puedes sembrar perra, esta ocupado la casilla");
                 }
@@ -138,6 +121,31 @@ public class Grama implements Celda {
 
     }
 
+    public void grano(JMenuItem grano) {
+        grano.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if (estado) {
+                    String nombre = JOptionPane.showInputDialog(null, "Ingrese el nombre de la planta");
+                    if (nombre != null) {
+                        semilla = new Semilla(TipoSemilla.GRANOS, nombre);
+                        ImageIcon icon2 = new ImageIcon(estadoCelda.SEMBRADO.getResource());
+                        label.setIcon(new ImageIcon(icon2.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH)));
+                        estado = false;
+                        semilla.setLabel(label);
+                        JOptionPane.showMessageDialog(null, "Semilla sembrado correctamente");
+                        semilla.start();
+                    }
+                    System.out.println("Adios");
+                } else {
+                    JOptionPane.showMessageDialog(null, "No puedes sembrar, terreno ocupado");
+                }
+
+            }
+
+        });
+
+    }
 
     public void limpiar(JMenuItem limpiar) {
 
@@ -147,9 +155,19 @@ public class Grama implements Celda {
                 if (estado) {
                     JOptionPane.showMessageDialog(null, "El terreno esta limpio pedazo de idiota");
                 } else {
-                    semilla=null;
+                    if (semilla.isFruta()) {
+                        semilla.detenerPlantas();
+
+                    }
+                    if (semilla.isGrano()) {
+
+                        semilla.detenerGranos();
+                    }
+                    semilla.detener();
+                    semilla = null;
                     label.setIcon(new ImageIcon(icon.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH)));
-                    JOptionPane.showMessageDialog(null, "Terreno limpiado, ahora puedes sembrar");
+                    JOptionPane.showMessageDialog(null, "Terreno limpiado, ahora puedes sembrar  ");
+
                     estado = true;
                 }
             }
@@ -163,11 +181,17 @@ public class Grama implements Celda {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 if (estado) {
-                    JOptionPane.showMessageDialog(null, "No puedes cosechar en un terreno limpio burro");
+                    JOptionPane.showMessageDialog(null, "No puedes cosechar en un terreno limpio burro: ");
 
                 } else {
-                    JOptionPane.showMessageDialog(null, "Cosechado correctamente...");
-                    estado = true;
+                    if(semilla.getTipo()==TipoSemilla.FRUTAS){
+                        jugador.agregarPlanta(semilla.getPlanta());
+                    }
+                    if(semilla.getTipo()==TipoSemilla.GRANOS){
+                        jugador.agregarPlanta(semilla.getGranos());
+                    }
+                    JOptionPane.showMessageDialog(null, "Cosechado correctamente..." + semilla.getPlanta().getNombre());
+                    jugador.listarPlantas();
                 }
 
             }
@@ -214,6 +238,14 @@ public class Grama implements Celda {
 
         });
 
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
     }
 
 }

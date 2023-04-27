@@ -14,7 +14,7 @@ public enum EstadoCelda {
     GRANO_LISTO("/home/tuxrex/NetBeansProjects/my-farm/src/main/java/img/grano_listo.jpg"),
     PLANTA_PODRIDA("/home/tuxrex/NetBeansProjects/my-farm/src/main/java/img/planta_podrida.jpg"),
     PESCANDO("/home/tuxrex/NetBeansProjects/my-farm/src/main/java/img/Barco.jpg"),
-    FRUTA("/home/tuxrex/NetBeansProjects/my-farm/src/main/java/img/manzana.jpg");
+    FRUTA("/home/tuxrex/NetBeansProjects/my-farm/src/main/java/img/fruta.jpg");
     
     
     private String resource;

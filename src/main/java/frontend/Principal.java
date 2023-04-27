@@ -4,10 +4,14 @@
  */
 package frontend;
 
+import enums.TipoProduccionPlanta;
+import enums.TipoSemilla;
 import javax.swing.JTextField;
 import logica.ManejadorJugador;
 import logica.MatrizCelda;
 import objetos.Jugador;
+import objetos.PlantaFruta;
+import objetos.PlantaGranos;
 
 /**
  *
@@ -24,6 +28,9 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         jugador.setFieldVida(txtVida);
         jugador.setMonedasOross(monedasOro);
+        jugador.agregarPlanta(new PlantaFruta(TipoSemilla.FRUTAS, TipoProduccionPlanta.FRUTA, 20, "Manzana"));
+        jugador.agregarPlanta( new PlantaGranos(TipoSemilla.GRANOS, TipoProduccionPlanta.GRANO, 5, "Maiz"));
+        jugador.listarPlantas();
 
         matriz = new MatrizCelda();
         panelGranja.add(matriz.panelTotal());

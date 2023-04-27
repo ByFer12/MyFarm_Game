@@ -18,7 +18,6 @@ public interface Celda {
      * @param image
      * @param libre
      */
- void setImage(EstadoCelda image, boolean libre);
     
     JPanel mostrarPanel();
     
