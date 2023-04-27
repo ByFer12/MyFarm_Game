@@ -8,6 +8,7 @@ import cells.Agua;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import logica.RecojerPezca;
 
 public class Barco extends Thread {
     
@@ -39,7 +40,8 @@ public class Barco extends Thread {
             
         }
         JOptionPane.showMessageDialog(null, "Barco lleno, debe recoger sus pescados");
-        
+        RecojerPezca recojer = new RecojerPezca(pecesBarco);
+       
     }
     
     
@@ -50,15 +52,10 @@ public class Barco extends Thread {
 
     public void setPecesAgua(Pescado[] pecesAgua) {
         this.pecesAgua = pecesAgua;
+      
     }
 
-    public Pescado[] getPecesBarco() {
-        return pecesBarco;
-    }
-
-    public void setPecesBarco(Pescado[] pecesBarco) {
-        this.pecesBarco = pecesBarco;
-    }
+ 
     
     public int getPrecio() {
         return precio;

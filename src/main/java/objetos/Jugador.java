@@ -15,10 +15,11 @@ public class Jugador extends SerVivo {
     private String nick;
     private Animal animales[];
     private Planta plantas[];
-    private final int NUMERO_ANIMALES = 20, NUMERO_PLANTAS=20;
-    private int numActual;
+    private final int NUMERO_ANIMALES = 20, NUMERO_PLANTAS=20,NUM_PECES=500;
+    private int numPlant, numAnim,numPez;
     private JTextField vidaLabel, monedasOross;
     private int monedas;
+    private Pescado[]peces;
 
     public Jugador(String nombre, String nick, JTextField vidaLabel, JTextField monedasOross) {
         super(nombre);
@@ -27,6 +28,7 @@ public class Jugador extends SerVivo {
         this.monedasOross = monedasOross;
         this.animales = new Animal[NUMERO_ANIMALES];
         this.plantas = new Planta[NUMERO_PLANTAS];
+        this.peces= new Pescado[NUM_PECES];
         this.monedas = 200;
     }
 
@@ -47,10 +49,22 @@ public class Jugador extends SerVivo {
             }
         }
     }
+    public void aregarPezca(Pescado pez){
+        if(this.numPez<NUM_PECES){
+            this.peces[numPez++]=pez;
+        }else{
+            JOptionPane.showMessageDialog(null, "No puedes agregar mas pescado, necesita vender");
+        }
+        
+    }
+       public void numPezca(){
+        System.out.println("Numero de pezcados:  "+numPez);
+
+    }
 
     public void agregarPlanta(Planta planta) {
-        if (this.numActual < NUMERO_PLANTAS) {
-            this.plantas[numActual++] = planta;
+        if (this.numPlant < NUMERO_PLANTAS) {
+            this.plantas[numPlant++] = planta;
         }else{
             JOptionPane.showMessageDialog(null, "No puedes agregar mas plantas");
         }
@@ -58,7 +72,7 @@ public class Jugador extends SerVivo {
     
     public void listarPlantas(){
         System.out.println("Lista de plantas: ");
-        for(int i=0; i<numActual; i++){
+        for(int i=0; i<numPlant; i++){
             System.out.println("Plantas: "+plantas[i].getNombre());
         }
     }

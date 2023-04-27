@@ -9,7 +9,9 @@ import enums.TipoSemilla;
 import javax.swing.JTextField;
 import logica.ManejadorJugador;
 import logica.MatrizCelda;
+import logica.RecojerPezca;
 import objetos.Jugador;
+import objetos.Pescado;
 import objetos.PlantaFruta;
 import objetos.PlantaGranos;
 
@@ -64,6 +66,14 @@ public class Principal extends javax.swing.JFrame {
         botonIniciar = new javax.swing.JButton();
         monedas = new javax.swing.JLabel();
         monedasOro = new javax.swing.JTextField("      "+200);
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        recogerPesca = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        mercado = new javax.swing.JMenuItem();
+        estadistica = new javax.swing.JMenuItem();
+        comer = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -164,8 +174,39 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(monedasOro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botonIniciar)
-                .addContainerGap(672, Short.MAX_VALUE))
+                .addContainerGap(647, Short.MAX_VALUE))
         );
+
+        jMenu1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jMenu1.setText("Producto");
+
+        recogerPesca.setText("Recoger Pesca");
+        recogerPesca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                recogerPescaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(recogerPesca);
+
+        jMenuItem1.setText("Tipo de produccion");
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Resultados");
+
+        mercado.setText("Ir al mercado");
+        jMenu2.add(mercado);
+
+        estadistica.setText("Ver estadisticas");
+        jMenu2.add(estadistica);
+
+        comer.setText("Comer");
+        jMenu2.add(comer);
+
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -206,15 +247,28 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_monedasOroActionPerformed
 
+    private void recogerPescaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recogerPescaActionPerformed
+        RecojerPezca.recogerPezca();
+        jugador.numPezca();
+    }//GEN-LAST:event_recogerPescaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonIniciar;
+    private javax.swing.JMenuItem comer;
+    private javax.swing.JMenuItem estadistica;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem mercado;
     private javax.swing.JLabel monedas;
     public javax.swing.JTextField monedasOro;
     private javax.swing.JLabel nick;
     private javax.swing.JLabel nombre;
     private javax.swing.JPanel panelDatos;
     private javax.swing.JPanel panelGranja;
+    private javax.swing.JMenuItem recogerPesca;
     private javax.swing.JTextField txtNick;
     private javax.swing.JTextField txtNombre;
     public javax.swing.JTextField txtVida;
